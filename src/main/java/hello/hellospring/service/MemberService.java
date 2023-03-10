@@ -12,10 +12,18 @@ import java.util.Optional;
 //(예. 기획자:회원가입로직이 이상해요, 개발자:(join메소드 바로 확인)
 //반대로 repository같은 경우 예. findByName, findById..
 
-
+//MemberService에 alt+enter->creat test하면 Junit테스트가 같은 패키지에 만들어짐
 public class MemberService {
 
-    private final MemberRepository memberRepository = new MemoryMemberRepository() {
+    //private final MemberRepository memberRepository = new MemoryMemberRepository();
+    private final MemberRepository memberRepository;
+
+    //memberRepository를 new해서 생성하는방식이 아니라 외부에서 가져오는 방식
+    //=> Dependency injection.. DI!
+    public MemberService(MemberRepository memberRepository){
+        this.memberRepository = memberRepository;
+    }
+
         /**
          * 회원 가입
          */
@@ -38,11 +46,8 @@ public class MemberService {
 
             // 3.Extracts Method로 Optional<Member>를 validateDuplicateMember메소드로 뽑아냄
             validateDuplicateMember(member); //중복 회원 검증
-
             memberRepository.save(member);
             return member.getId();
-
-
         }
 
         private void validateDuplicateMember(Member member) {
@@ -53,18 +58,19 @@ public class MemberService {
         }
 
 
-         /**
-          * 전체 회원 조회
-          */
-         public List<Member> findMembers(){
-             return memberRepository.findAll();
-         }
+        /**
+         * 전체 회원 조회
+         */
+        public List<Member> findMembers() {
+            return memberRepository.findAll();
+        }
 
 
-         public Optional<Member> findOne(Long memberId) {
-             return memberRepository.findById(memberId);
-         }
+        public Optional<Member> findOne(Long memberId) {
+            return memberRepository.findById(memberId);
+        }
 
 
     };
-}
+
+
