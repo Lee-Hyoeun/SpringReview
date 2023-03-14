@@ -15,7 +15,7 @@ import java.util.Optional;
 //반대로 repository같은 경우 예. findByName, findById..
 
 //MemberService에 alt+enter->creat test하면 Junit테스트가 같은 패키지에 만들어짐
-@Service
+//@Service
 public class MemberService {
 
     //private final MemberRepository memberRepository = new MemoryMemberRepository();
@@ -23,7 +23,7 @@ public class MemberService {
 
     //memberRepository를 new해서 생성하는방식이 아니라 외부에서 가져오는 방식
     //=> Dependency injection.. DI!
-    @Autowired
+//    @Autowired
     public MemberService(MemberRepository memberRepository){
         this.memberRepository = memberRepository;
     }

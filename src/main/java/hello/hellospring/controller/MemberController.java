@@ -14,6 +14,7 @@ public class MemberController {
 
     //@Autowired해서 생성한 memberService를 spring빈 안에 등록된 @Service와 @Repository의 memberService 객체와 서로 연결시켜줌
     //-> DI. 1.컴포넌트 스캔과 자동 의존관계 설정
+    //3. 생성자 주입
     @Autowired
     public MemberController(MemberService memberService){
         this.memberService = memberService;
@@ -21,4 +22,17 @@ public class MemberController {
     //스프링 빈을 등록하는 두번째방법 2. 자바코드로 직접 스프링 빈 등록하기
 
 
+    /*
+    * DI에는 1.field주입, 2.setter주입, 3.생성자주입-> 의존관계가 실행(런타임)중에 동적으로 변하는 경우는 거의 없어서 생성자 주입을 권장
+    //옛날에는 setter주입도 많이 썼는데 애플리케이션이 조립될때(스프링 컨테이너에 세팅되는 시점)생성자는 한번생성되고 변경 없이 막을 수 있지만, setter는 아무나 호출 가능해서
+    //최근에는 생성자주입은 권장
+    * 1. field주입: 필드에 고정이라 나중에 변경하기가 어려움->권장x
+    * 생성자를 빼고 필드에 @Autowired
+    * @Autowired private final MemberService memberService;
+    *
+     * 2. setter주입: setter는 public이라서 아무나 호출가능->권장x(필요한곳에 권한있는자가 호출하도록하는게 좋은 코드)
+    * @Autowired
+    * public void setMemberService(MemberService memberService){
+    *     this.memberService = memberService;}
+    * */
 }
