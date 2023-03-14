@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<div class="container">
+    <div>
+        <table>
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>이름</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="member : ${members}"> <!-- ${ } 모델안에 값을 꺼내와서 member에 넣음(th:each문은 타임리프의 루프도는 문법) -->
+                <td th:text="${member.id}"></td> <!--getter setter에서 id와 name을 가져옴-->
+                <td th:text="${member.name}"></td>
+            </tr>
+            </tbody>
+        </table>
+
+    </div>
+
+</div>  <!--- /container --->
+
+</body>
+</html>

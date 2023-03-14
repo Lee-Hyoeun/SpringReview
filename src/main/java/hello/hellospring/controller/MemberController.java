@@ -4,8 +4,11 @@ import hello.hellospring.domain.Member;
 import hello.hellospring.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import java.util.List;
 
 //@Controller를 붙이면 spring컨테이너에서 컨트롤러라고 객체를 생성해서 spring에 넣어두고 spring 빈이 관리함
 //참고.스프링은 스프링 컨테이너에 스프링 빈을 등록할 때 기본으로 싱글톤 등록. 따라서 같은 스프링 빈이면 모두 같은 인스턴스
@@ -57,5 +60,14 @@ public class MemberController {
 
         return "redirect:/";
     }
+
+    @GetMapping("/members")
+    public String list(Model model){
+        List<Member> members = memberService.findMembers();
+        model.addAttribute("members", members); //model리스트에 담아서 넘김
+        return "members/memberList";
+    }
+
+
 
 }
