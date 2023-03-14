@@ -1,8 +1,11 @@
 package hello.hellospring.controller;
 
+import hello.hellospring.domain.Member;
 import hello.hellospring.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
 //@Controller를 붙이면 spring컨테이너에서 컨트롤러라고 객체를 생성해서 spring에 넣어두고 spring 빈이 관리함
 //참고.스프링은 스프링 컨테이너에 스프링 빈을 등록할 때 기본으로 싱글톤 등록. 따라서 같은 스프링 빈이면 모두 같은 인스턴스
@@ -35,4 +38,24 @@ public class MemberController {
     * public void setMemberService(MemberService memberService){
     *     this.memberService = memberService;}
     * */
+
+
+    //회원가입
+    @GetMapping("/members/new")
+    public String createForm(){
+        return "members/createMemberForm";
+    }
+
+    @PostMapping("/members/new")
+    public String create(MemberForm form){
+        Member member = new Member();
+        member.setName(form.getName()); //form에서 getName으로 멤버 만들어지고
+
+        System.out.println("member= "+member.getName());
+
+        memberService.join(member); //join해서 멤버를 넘김
+
+        return "redirect:/";
+    }
+
 }
