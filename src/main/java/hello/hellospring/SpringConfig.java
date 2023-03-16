@@ -1,6 +1,7 @@
 package hello.hellospring;
 
 import hello.hellospring.repository.JdbcMemberRepository;
+import hello.hellospring.repository.JdbcTemplateMemberRepository;
 import hello.hellospring.repository.MemberRepository;
 import hello.hellospring.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +37,11 @@ public class SpringConfig {
         //메모리가 아닌 jdbc레포짓으로 =>이게바로 스프링을 쓰는 이유!
         //객체지향적인 설계. 다형성. 인페두고 구현체 바꿔끼기. 스프링이 이게 가능하도록 스프링컨테이너가 지원을 해줌
         //이를 SOLID원칙중 개방폐쇄 원칙이라고 한다(OCP:확장에는 열려있고 수정,변경에는 닫혀있다.)
-        return new JdbcMemberRepository(dataSource);
+//        return new JdbcMemberRepository(dataSource);
+
+        //Jdbc 템플릿
+        return new JdbcTemplateMemberRepository(dataSource);
+
     }
 
     // 위 내용은 @Service한줄로 스프링빈 정리 가능,, 간결하지만 그래도 자바코드로 직접 스프링빈 등록할 줄 알기
